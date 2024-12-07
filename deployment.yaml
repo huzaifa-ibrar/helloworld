@@ -18,6 +18,10 @@ spec:
         image: nginx:latest
         ports:
         - containerPort: 80
-        env:
-        - name: GREETING
-          value: "Hello, World!"
+        volumeMounts:
+        - name: html-config
+          mountPath: /usr/share/nginx/html # Overwrites NGINX default content
+      volumes:
+      - name: html-config
+        configMap:
+          name: hello-world-config # References the ConfigMap containing the HTML
